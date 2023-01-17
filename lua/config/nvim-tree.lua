@@ -140,7 +140,7 @@ nvim_tree.setup {
   },
 }
 
-keymap.set("n", "<space>b", function()
+keymap.set("n", "<leader>b", function()
   nvim_tree.toggle(
     false, -- with_find_file
     false) -- no_focus

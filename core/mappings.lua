@@ -11,7 +11,7 @@ keymap.set("t", "kj", "<C-\\><C-n>", default_opts)
 -- Searching
 
 -- Use <space> to search
-keymap.set("n", "<space>", "/", default_opts)
+keymap.set("", "<space>", "/")
 
 -- Center search results
 keymap.set("n", "n", "nzz", default_opts)
@@ -51,18 +51,6 @@ keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
 keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
   silent = true,
   desc = "delete buffer",
-})
-
--- Insert a blank line below or above current line (do not move the cursor),
--- see https://stackoverflow.com/a/16136133/6064933
-keymap.set("n", "<space>o", "printf('m`%so<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line below",
-})
-
-keymap.set("n", "<space>O", "printf('m`%sO<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line above",
 })
 
 -- Move the cursor based on physical lines, not the actual lines.
