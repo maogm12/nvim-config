@@ -1,15 +1,35 @@
 local keymap = vim.keymap
 local api = vim.api
 local uv = vim.loop
+local default_opts = { noremap = true, silent = true }
+local expr_opts = { noremap = true, expr = true, silent = true }
 
--- Save key strokes (now we do not need to press shift to enter command mode).
-keymap.set({ "n", "x" }, ";", ":")
+-- Better escape using jk in insert and terminal mode
+keymap.set("i", "kj", "<ESC>", default_opts)
+keymap.set("t", "kj", "<C-\\><C-n>", default_opts)
 
--- Turn the word under cursor to upper case
-keymap.set("i", "<c-u>", "<Esc>viwUea")
+-- Searching
 
--- Turn the current word into title case
-keymap.set("i", "<c-t>", "<Esc>b~lea")
+-- Use <space> to search
+keymap.set("n", "<space>", "/", default_opts)
+
+-- Center search results
+keymap.set("n", "n", "nzz", default_opts)
+keymap.set("n", "N", "Nzz", default_opts)
+keymap.set("n", "*", "*zz", default_opts)
+keymap.set("n", "#", "#zz", default_opts)
+keymap.set("n", "g*", "g*zz", default_opts)
+
+-- Visual line wraps
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
+
+-- We use <Shift-h> and <Shift-l> to move the line head/end
+keymap.set("n", "<S-h>", "0", default_opts)
+keymap.set("n", "<S-l>", "$", default_opts)
+
+-- Cancel search highlighting with ESC
+keymap.set("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
 
 -- Paste non-linewise text above or below current line, see https://stackoverflow.com/a/1346777/6064933
 keymap.set("n", "<leader>p", "m`o<ESC>p``", { desc = "paste below current line" })
@@ -20,22 +40,6 @@ keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save bu
 
 -- Saves the file if modified and quit
 keymap.set("n", "<leader>q", "<cmd>x<cr>", { silent = true, desc = "quit current window" })
-
--- Quit all opened buffers
-keymap.set("n", "<leader>Q", "<cmd>qa!<cr>", { silent = true, desc = "quit nvim" })
-
--- Navigation in the location and quickfix list
-keymap.set("n", "[l", "<cmd>lprevious<cr>zv", { silent = true, desc = "previous location item" })
-keymap.set("n", "]l", "<cmd>lnext<cr>zv", { silent = true, desc = "next location item" })
-
-keymap.set("n", "[L", "<cmd>lfirst<cr>zv", { silent = true, desc = "first location item" })
-keymap.set("n", "]L", "<cmd>llast<cr>zv", { silent = true, desc = "last location item" })
-
-keymap.set("n", "[q", "<cmd>cprevious<cr>zv", { silent = true, desc = "previous qf item" })
-keymap.set("n", "]q", "<cmd>cnext<cr>zv", { silent = true, desc = "next qf item" })
-
-keymap.set("n", "[Q", "<cmd>cfirst<cr>zv", { silent = true, desc = "first qf item" })
-keymap.set("n", "]Q", "<cmd>clast<cr>zv", { silent = true, desc = "last qf item" })
 
 -- Close location list or quickfix list if they are present, see https://superuser.com/q/355325/736190
 keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
@@ -77,8 +81,8 @@ keymap.set({ "n", "x" }, "L", "g_")
 
 -- Continuous visual shifting (does not exit Visual mode), `gv` means
 -- to reselect previous visual area, see https://superuser.com/q/310417/736190
-keymap.set("x", "<", "<gv")
-keymap.set("x", ">", ">gv")
+keymap.set("x", "<", "<gv", default_opts)
+keymap.set("x", ">", ">gv", default_opts)
 
 -- Edit and reload nvim config file quickly
 keymap.set("n", "<leader>ev", "<cmd>tabnew $MYVIMRC <bar> tcd %:h<cr>", {
@@ -103,9 +107,6 @@ keymap.set("n", "<leader>v", "printf('`[%s`]', getregtype()[0])", {
   desc = "reselect last pasted area",
 })
 
--- Always use very magic mode for searching
-keymap.set("n", "/", [[/\v]])
-
 -- Search in selected region
 -- xnoremap / :<C-U>call feedkeys('/\%>'.(line("'<")-1).'l\%<'.(line("'>")+1)."l")<CR>
 
@@ -119,13 +120,6 @@ keymap.set("t", "<Esc>", [[<c-\><c-n>]])
 -- Toggle spell checking
 keymap.set("n", "<F11>", "<cmd>set spell!<cr>", { desc = "toggle spell" })
 keymap.set("i", "<F11>", "<c-o><cmd>set spell!<cr>", { desc = "toggle spell" })
-
--- Change text without putting it into the vim register,
--- see https://stackoverflow.com/q/54255/6064933
-keymap.set("n", "c", '"_c')
-keymap.set("n", "C", '"_C')
-keymap.set("n", "cc", '"_cc')
-keymap.set("x", "c", '"_c')
 
 -- Remove trailing whitespace characters
 keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
@@ -160,11 +154,17 @@ keymap.set("n", "gB", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>',
   desc = "go to buffer (backward)",
 })
 
--- Switch windows
-keymap.set("n", "<left>", "<c-w>h")
-keymap.set("n", "<Right>", "<C-W>l")
-keymap.set("n", "<Up>", "<C-W>k")
-keymap.set("n", "<Down>", "<C-W>j")
+-- Resizing panes
+keymap.set("n", "<Left>", ":vertical resize +1<CR>", default_opts)
+keymap.set("n", "<Right>", ":vertical resize -1<CR>", default_opts)
+keymap.set("n", "<Up>", ":resize -1<CR>", default_opts)
+keymap.set("n", "<Down>", ":resize +1<CR>", default_opts)
+
+-- Move between windows
+keymap.set("", "<C-j>", "<C-w>j", default_opts)
+keymap.set("", "<C-k>", "<C-w>k", default_opts)
+keymap.set("", "<C-h>", "<C-w>h", default_opts)
+keymap.set("", "<C-l>", "<C-w>l", default_opts)
 
 -- Text objects for URL
 keymap.set({ "x", "o" }, "iu", "<cmd>call text_obj#URL()<cr>", { desc = "URL text object" })
@@ -219,8 +219,20 @@ api.nvim_create_autocmd("TextYankPost", {
 keymap.set("i", "<C-A>", "<HOME>")
 keymap.set("i", "<C-E>", "<END>")
 
--- Go to beginning of command in command-line mode
-keymap.set("c", "<C-A>", "<HOME>")
+-- Command line
+-- F1 for command
+keymap.set("", "<F1>", ":", default_opts)
+
+-- save Some keystrokes
+keymap.set("", ";", ":", default_opts)
+
+-- Ctrl-j/k to look command history
+keymap.set("c", "<C-j>", "<Home>", default_opts)
+keymap.set("c", "<C-k>", "<End>", default_opts)
+
+-- Ctrl-a/e to line head/end
+keymap.set("c", "<C-a>", "<Home>", default_opts)
+keymap.set("c", "<C-e>", "<End>", default_opts)
 
 -- Delete the character to the right of the cursor
 keymap.set("i", "<C-D>", "<DEL>")

@@ -3,10 +3,6 @@ scriptencoding utf-8
 " change fillchars for folding, vertical split, end of buffer, and message separator
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 
-" Paste mode toggle, it seems that Nvim's bracketed paste mode
-" does not work very well for nvim-qt, so we use good-old paste mode
-set pastetoggle=<F12>
-
 " Split window below/right when creating horizontal/vertical windows
 set splitbelow splitright
 
@@ -52,7 +48,9 @@ set expandtab       " expand tab to spaces so that tabs are spaces
 " Set matching pairs of characters and highlight matching brackets
 set matchpairs+=<:>,「:」,『:』,【:】,“:”,‘:’,《:》
 
-set number relativenumber  " Show line number and relative line number
+" relative number in normal mode
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
 
 " Ignore case in general, but become case-sensitive when uppercase is present
 set ignorecase smartcase
@@ -71,11 +69,6 @@ set wildmode=list:longest
 
 " Minimum lines to keep above and below cursor when scrolling
 set scrolloff=3
-
-" Use mouse to select and resize windows, etc.
-set mouse=nic  " Enable mouse in several mode
-set mousemodel=popup  " Set the behaviour of mouse
-set mousescroll=ver:1,hor:6
 
 " Disable showing current mode on command line since statusline plugins can show it.
 set noshowmode
@@ -154,14 +147,10 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
-" Enable true color support. Do not set this option if your terminal does not
-" support true colors! For a comprehensive list of terminals supporting true
-" colors, see https://github.com/termstandard/colors and https://gist.github.com/XVilka/8346728.
-set termguicolors
-
-" Set up cursor color and shape in various mode, ref:
-" https://github.com/neovim/neovim/wiki/FAQ#how-to-change-cursor-color-in-the-terminal
-set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor20
+"  " Enable true color support. Do not set this option if your terminal does not
+"  " support true colors! For a comprehensive list of terminals supporting true
+"  " colors, see https://github.com/termstandard/colors and https://gist.github.com/XVilka/8346728.
+"  set termguicolors
 
 set signcolumn=yes:1
 

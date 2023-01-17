@@ -122,21 +122,6 @@ packer.startup {
     -- search emoji and other symbols
     use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
 
-    -- A list of colorscheme plugin you may want to try. Find what suits you.
-    use { "navarasu/onedark.nvim", opt = true }
-    use { "sainnhe/edge", opt = true }
-    use { "sainnhe/sonokai", opt = true }
-    use { "sainnhe/gruvbox-material", opt = true }
-    use { "shaunsingh/nord.nvim", opt = true }
-    use { "sainnhe/everforest", opt = true }
-    use { "EdenEast/nightfox.nvim", opt = true }
-    use { "rebelot/kanagawa.nvim", opt = true }
-    use { "catppuccin/nvim", as = "catppuccin", opt = true }
-    use({ "rose-pine/neovim", as = 'rose-pine', opt = true })
-    use { "olimorris/onedarkpro.nvim", opt = true }
-    use { "tanvirtin/monokai.nvim", opt = true }
-    use { "marko-cerovac/material.nvim", opt = true }
-
     use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
 
     use {
@@ -225,11 +210,11 @@ packer.startup {
 
     use { "nvim-zh/better-escape.vim", event = { "InsertEnter" } }
 
-    if vim.g.is_mac then
-      use { "lyokha/vim-xkbswitch", event = { "InsertEnter" } }
-    elseif vim.g.is_win then
-      use { "Neur1n/neuims", event = { "InsertEnter" } }
-    end
+    -- if vim.g.is_mac then
+    --   use { "lyokha/vim-xkbswitch", event = { "InsertEnter" } }
+    -- elseif vim.g.is_win then
+    --   use { "Neur1n/neuims", event = { "InsertEnter" } }
+    -- end
 
     -- Auto format tools
     use { "sbdchd/neoformat", cmd = { "Neoformat" } }

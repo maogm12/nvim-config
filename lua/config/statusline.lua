@@ -8,23 +8,23 @@ local function spell()
   return ""
 end
 
---- show indicator for Chinese IME
-local function ime_state()
-  if vim.g.is_mac then
-    -- ref: https://github.com/vim-airline/vim-airline/blob/master/autoload/airline/extensions/xkblayout.vim#L11
-    local layout = fn.libcall(vim.g.XkbSwitchLib, "Xkb_Switch_getXkbLayout", "")
+-- --- show indicator for Chinese IME
+-- local function ime_state()
+--   if vim.g.is_mac then
+--     -- ref: https://github.com/vim-airline/vim-airline/blob/master/autoload/airline/extensions/xkblayout.vim#L11
+--     local layout = fn.libcall(vim.g.XkbSwitchLib, "Xkb_Switch_getXkbLayout", "")
 
-    -- We can use `xkbswitch -g` on the command line to get current mode.
-    -- mode for macOS builtin pinyin IME: com.apple.inputmethod.SCIM.ITABC
-    -- mode for Rime: im.rime.inputmethod.Squirrel.Rime
-    local res = fn.match(layout, [[\v(Squirrel\.Rime|SCIM.ITABC)]])
-    if res ~= -1 then
-      return "[CN]"
-    end
-  end
+--     -- We can use `xkbswitch -g` on the command line to get current mode.
+--     -- mode for macOS builtin pinyin IME: com.apple.inputmethod.SCIM.ITABC
+--     -- mode for Rime: im.rime.inputmethod.Squirrel.Rime
+--     local res = fn.match(layout, [[\v(Squirrel\.Rime|SCIM.ITABC)]])
+--     if res ~= -1 then
+--       return "[CN]"
+--     end
+--   end
 
-  return ""
-end
+--   return ""
+-- end
 
 local function trailing_space()
   if not vim.o.modifiable then
@@ -117,17 +117,17 @@ require("lualine").setup {
         source = diff,
       },
     },
-    lualine_c = {
-      "filename",
-      {
-        ime_state,
-        color = { fg = "black", bg = "#f46868" },
-      },
-      {
-        spell,
-        color = { fg = "black", bg = "#a7c080" },
-      },
-    },
+    -- lualine_c = {
+    --   "filename",
+    --   {
+    --     ime_state,
+    --     color = { fg = "black", bg = "#f46868" },
+    --   },
+    --   {
+    --     spell,
+    --     color = { fg = "black", bg = "#a7c080" },
+    --   },
+    -- },
     lualine_x = {
       "encoding",
       {

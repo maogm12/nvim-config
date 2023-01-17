@@ -1,5 +1,21 @@
 local keymap = vim.keymap
 local nvim_tree = require("nvim-tree")
+local lib = require("nvim-tree.lib")
+
+local function edit_or_open()
+  -- open as vsplit on current node
+  local action = "edit"
+  local node = lib.get_node_at_cursor()
+
+  -- Just copy what's done normally with vsplit
+  if node.link_to and not node.nodes then
+      require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+  elseif node.nodes ~= nil then
+      lib.expand_or_collapse(node)
+  else
+      require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
+  end
+end
 
 nvim_tree.setup {
   auto_reload_on_write = true,
@@ -24,7 +40,11 @@ nvim_tree.setup {
     mappings = {
       custom_only = false,
       list = {
-        -- user mappings go here
+        { key = "v", action = "vsplit" },
+        { key = "x", action = "split" },
+        { key = "t", action = "tabnew" },
+        { key = "l", action = "edit", action_cb = edit_or_open },
+        { key = "h", action = "close_node" },
       },
     },
   },
@@ -72,7 +92,7 @@ nvim_tree.setup {
   },
   git = {
     enable = true,
-    ignore = true,
+    ignore = false,
     timeout = 400,
   },
   actions = {
@@ -111,8 +131,17 @@ nvim_tree.setup {
       profile = false,
     },
   },
+  tab = {
+    sync = {
+        open = true,
+        close = true,
+        ignore = {},
+    },
+  },
 }
 
-keymap.set("n", "<space>s", function()
-  return require("nvim-tree").toggle(false, true)
+keymap.set("n", "<space>b", function()
+  nvim_tree.toggle(
+    false, -- with_find_file
+    false) -- no_focus
 end, { silent = true, desc = "toggle nvim-tree" })
