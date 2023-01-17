@@ -113,6 +113,13 @@ packer.startup {
     else
       use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
     end
+    
+    -- fzf.lua
+    use {
+      'ibhagwan/fzf-lua',
+      requires = { 'nvim-tree/nvim-web-devicons' },
+      config = [[require('config.fzf-lua')]],
+    }
 
     use {
       "nvim-telescope/telescope.nvim",
