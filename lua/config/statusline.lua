@@ -1,12 +1,12 @@
 local fn = vim.fn
 
-local function spell()
-  if vim.o.spell then
-    return string.format("[SPELL]")
-  end
+-- local function spell()
+--   if vim.o.spell then
+--     return string.format("[SPELL]")
+--   end
 
-  return ""
-end
+--   return ""
+-- end
 
 -- --- show indicator for Chinese IME
 -- local function ime_state()
