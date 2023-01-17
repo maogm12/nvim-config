@@ -134,19 +134,45 @@ keymap.set("x", "<A-j>", '<cmd>call utils#MoveSelection("down")<cr>', { desc = "
 -- see also https://stackoverflow.com/q/10723700/6064933.
 keymap.set("x", "p", '"_c<Esc>p')
 
+--------------- buffer/tab ------------------
+
 -- Go to a certain buffer
-keymap.set("n", "gb", '<cmd>call buf_utils#GoToBuffer(v:count, "forward")<cr>', {
+keymap.set("n", "<right>", '<cmd>call buf_utils#GoToBuffer(v:count, "forward")<cr>', {
   desc = "go to buffer (forward)",
 })
-keymap.set("n", "gB", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>', {
+keymap.set("n", "<left>", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>', {
   desc = "go to buffer (backward)",
 })
 
+-- fast way to navigate to a specific tab in normal mode
+keymap.set("n", "<leader>1", "1gt", default_opts)
+keymap.set("n", "<leader>2", "2gt", default_opts)
+keymap.set("n", "<leader>3", "3gt", default_opts)
+keymap.set("n", "<leader>4", "4gt", default_opts)
+keymap.set("n", "<leader>5", "5gt", default_opts)
+keymap.set("n", "<leader>6", "6gt", default_opts)
+keymap.set("n", "<leader>7", "7gt", default_opts)
+keymap.set("n", "<leader>8", "8gt", default_opts)
+keymap.set("n", "<leader>9", "9gt", default_opts)
+keymap.set("n", "<leader>0", ":tablast<cr>", default_opts)
+
+-- tab navigation
+keymap.set("", "<leader>th", ":tabfirst<cr>")
+keymap.set("", "<leader>tl", ":tablast<cr>")
+keymap.set("", "<leader>tj", ":tabnext<cr>")
+keymap.set("", "<leader>tk", ":tabprev<cr>")
+
+-- tab operation
+keymap.set("", "<leader>te", ":tabedit<cr>")
+keymap.set("", "<leader>td", ":tabclose<cr>")
+
+---------------- window ----------------------
+
 -- Resizing panes
-keymap.set("n", "<Left>", ":vertical resize +1<CR>", default_opts)
-keymap.set("n", "<Right>", ":vertical resize -1<CR>", default_opts)
-keymap.set("n", "<Up>", ":resize -1<CR>", default_opts)
-keymap.set("n", "<Down>", ":resize +1<CR>", default_opts)
+-- keymap.set("n", "<Left>", ":vertical resize +1<CR>", default_opts)
+-- keymap.set("n", "<Right>", ":vertical resize -1<CR>", default_opts)
+-- keymap.set("n", "<Up>", ":resize -1<CR>", default_opts)
+-- keymap.set("n", "<Down>", ":resize +1<CR>", default_opts)
 
 -- Move between windows
 keymap.set("", "<C-j>", "<C-w>j", default_opts)
