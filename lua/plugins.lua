@@ -108,28 +108,16 @@ packer.startup {
     }
 
     -- File search, tag search and more
-    if vim.g.is_win then
-      use { "Yggdroot/LeaderF", cmd = "Leaderf" }
-    else
-      use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
-    end
-    
-    -- fzf.lua
-    use {
-      'ibhagwan/fzf-lua',
-      requires = { 'nvim-tree/nvim-web-devicons' },
-      config = [[require('config.fzf-lua')]],
-    }
-
     use {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
       requires = { { "nvim-lua/plenary.nvim" } },
+      config = [[require('config.telescope')]],
     }
     -- search emoji and other symbols
     use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
 
-    use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
+    use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
 
     use {
       "nvim-lualine/lualine.nvim",
@@ -350,14 +338,21 @@ packer.startup {
 
     -- file explorer
     use {
-      "kyazdani42/nvim-tree.lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
+      "nvim-tree/nvim-tree.lua",
+      requires = { "nvim-tree/nvim-web-devicons" },
       config = [[require('config.nvim-tree')]],
     }
 
     use { "ii14/emmylua-nvim", ft = "lua" }
 
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
+
+    -- colorscheme onedark
+    use {
+      'navarasu/onedark.nvim',
+      config = [[require('config.onedark')]],
+    }
+
   end,
   config = {
     max_jobs = 16,
