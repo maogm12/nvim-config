@@ -147,10 +147,11 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
-"  " Enable true color support. Do not set this option if your terminal does not
-"  " support true colors! For a comprehensive list of terminals supporting true
-"  " colors, see https://github.com/termstandard/colors and https://gist.github.com/XVilka/8346728.
-"  set termguicolors
+" Enable true color support. For a comprehensive list of terminals supporting true colors,
+" see https://github.com/termstandard/colors and https://gist.github.com/XVilka/8346728.
+if (has("termguicolors") && ($COLORTERM == 'truecolor' || $COLORTERM == '24bit'))
+  set termguicolors
+endif
 
 set signcolumn=yes:1
 
