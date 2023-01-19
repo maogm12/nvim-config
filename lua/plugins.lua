@@ -327,9 +327,11 @@ packer.startup {
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
 
     -- colorscheme onedark
+    use 'navarasu/onedark.nvim'
+
     use {
-      'navarasu/onedark.nvim',
-      config = function() require('onedark').load() end,
+      'f-person/auto-dark-mode.nvim',
+      config = [[require('config.auto-dark-mode')]]
     }
 
   end,
