@@ -46,9 +46,12 @@ packer.startup {
     -- it is recommended to put impatient.nvim before any other plugins
     use { "lewis6991/impatient.nvim", config = [[require('impatient')]] }
 
+    -- package manager
     use { "wbthomason/packer.nvim", opt = true }
 
+    -- vscode-like pictograms in neovim built-in lsp popup items
     use { "onsails/lspkind-nvim", event = "VimEnter" }
+
     -- auto-completion engine
     use { "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]] }
 
@@ -65,6 +68,7 @@ packer.startup {
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
     use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
 
+    -- treesitter
     if vim.g.is_mac then
       use {
         "nvim-treesitter/nvim-treesitter",
@@ -80,6 +84,7 @@ packer.startup {
     -- Python-related text object
     use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
 
+    -- swap delimited items
     use { "machakann/vim-swap", event = "VimEnter" }
 
     -- IDE for Lisp
@@ -99,7 +104,7 @@ packer.startup {
       end,
     }
 
-    -- Show match number and index for searching
+    -- Show `[1/n]` style match number and index for searching
     use {
       "kevinhwang91/nvim-hlslens",
       branch = "main",
@@ -114,11 +119,14 @@ packer.startup {
       requires = { { "nvim-lua/plenary.nvim" } },
       config = [[require('config.telescope')]],
     }
+
     -- search emoji and other symbols
     use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
 
+    -- devicons, need a patched NERD font
     use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
 
+    -- statusline
     use {
       "nvim-lualine/lualine.nvim",
       event = "VimEnter",
@@ -126,6 +134,7 @@ packer.startup {
       config = [[require('config.statusline')]],
     }
 
+    -- render buffers as tabs
     use { "akinsho/bufferline.nvim", event = "VimEnter",
       cond = firenvim_not_active,
       config = [[require('config.bufferline')]] }
@@ -136,6 +145,7 @@ packer.startup {
       config = [[require('config.dashboard-nvim')]]
     }
 
+    -- indent |
     use {
       "lukas-reineke/indent-blankline.nvim",
       event = "VimEnter",
@@ -179,9 +189,6 @@ packer.startup {
     -- Comment plugin
     use { "tpope/vim-commentary", event = "VimEnter" }
 
-    -- Multiple cursor plugin like Sublime Text?
-    -- use 'mg979/vim-visual-multi'
-
     -- Autosave files on certain events
     use { "907th/vim-auto-save", event = "InsertEnter" }
 
@@ -191,29 +198,20 @@ packer.startup {
     -- better UI for some nvim actions
     use {'stevearc/dressing.nvim'}
 
-    -- Manage your yank history
-    use({
-      "gbprod/yanky.nvim",
-      config = [[require('config.yanky')]]
-    })
-
-    -- Handy unix command inside Vim (Rename, Move etc.)
-    use { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } }
-
     -- Repeat vim motions
     use { "tpope/vim-repeat", event = "VimEnter" }
 
-    use { "nvim-zh/better-escape.vim", event = { "InsertEnter" } }
-
-    -- if vim.g.is_mac then
-    --   use { "lyokha/vim-xkbswitch", event = { "InsertEnter" } }
-    -- elseif vim.g.is_win then
-    --   use { "Neur1n/neuims", event = { "InsertEnter" } }
-    -- end
+    -- better escaping with kj
+    use {
+      "max397574/better-escape.nvim",
+      event = { "InsertEnter" },
+      config = function() require("better_escape").setup { mapping = {"kj" } } end
+    }
 
     -- Auto format tools
     use { "sbdchd/neoformat", cmd = { "Neoformat" } }
 
+    ------------------ Git ---------------------
     -- Git command inside vim
     use { "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] }
 
@@ -234,6 +232,7 @@ packer.startup {
 
     -- Better git commit experience
     use { "rhysd/committia.vim", opt = true, setup = [[vim.cmd('packadd committia.vim')]] }
+    -----------------------------------------------
 
     use { "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] }
 
@@ -248,19 +247,10 @@ packer.startup {
 
     -- Markdown previewing (only for Mac and Windows)
     if vim.g.is_win or vim.g.is_mac then
-      use {
-        "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
-        ft = { "markdown" },
-      }
+      use { "iamcco/markdown-preview.nvim", ft = { "markdown" } }
     end
 
-    use { "folke/zen-mode.nvim", cmd = "ZenMode", config = [[require('config.zen-mode')]] }
-
-    if vim.g.is_mac then
-      use { "rhysd/vim-grammarous", ft = { "markdown" } }
-    end
-
+    -- handling unicode and digraphs characters
     use { "chrisbra/unicode.vim", event = "VimEnter" }
 
     -- Additional powerful text object for vim, this plugin should be studied
@@ -294,18 +284,6 @@ packer.startup {
     use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
 
     use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
-
-    -- Edit text area in browser using nvim
-    if vim.g.is_win or vim.g.is_mac then
-      use {
-        "glacambre/firenvim",
-        run = function()
-          fn["firenvim#install"](0)
-        end,
-        opt = true,
-        setup = [[vim.cmd('packadd firenvim')]],
-      }
-    end
 
     -- Debugger plugin
     if vim.g.is_win or vim.g.is_linux then
@@ -343,6 +321,7 @@ packer.startup {
       config = [[require('config.nvim-tree')]],
     }
 
+    -- Neovim completion library for sumneko/lua-language-server
     use { "ii14/emmylua-nvim", ft = "lua" }
 
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
@@ -350,7 +329,7 @@ packer.startup {
     -- colorscheme onedark
     use {
       'navarasu/onedark.nvim',
-      config = [[require('config.onedark')]],
+      config = function() require('onedark').load() end,
     }
 
   end,

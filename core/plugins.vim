@@ -65,9 +65,6 @@ nnoremap <silent> <leader>u :MundoToggle<CR>
 """"""""""""""""""""""""""""better-escape.vim settings"""""""""""""""""""""""""
 let g:better_escape_interval = 200
 
-""""""""""""""""""""""""""""vim-xkbswitch settings"""""""""""""""""""""""""
-" let g:XkbSwitchEnabled = 1
-
 """""""""""""""""""""""""""""" neoformat settings """""""""""""""""""""""
 let g:neoformat_enabled_python = ['black', 'yapf']
 let g:neoformat_cpp_clangformat = {
@@ -110,28 +107,6 @@ if g:is_win || g:is_mac
   " Shortcuts to start and stop markdown previewing
   nnoremap <silent> <M-m> :<C-U>MarkdownPreview<CR>
   nnoremap <silent> <M-S-m> :<C-U>MarkdownPreviewStop<CR>
-endif
-
-""""""""""""""""""""""""vim-grammarous settings""""""""""""""""""""""""""""""
-if g:is_mac
-  let g:grammarous#languagetool_cmd = 'languagetool'
-  let g:grammarous#disabled_rules = {
-      \ '*' : ['WHITESPACE_RULE', 'EN_QUOTES', 'ARROWS', 'SENTENCE_WHITESPACE',
-      \        'WORD_CONTAINS_UNDERSCORE', 'COMMA_PARENTHESIS_WHITESPACE',
-      \        'EN_UNPAIRED_BRACKETS', 'UPPERCASE_SENTENCE_START',
-      \        'ENGLISH_WORD_REPEAT_BEGINNING_RULE', 'DASH_RULE', 'PLUS_MINUS',
-      \        'PUNCTUATION_PARAGRAPH_END', 'MULTIPLICATION_SIGN', 'PRP_CHECKOUT',
-      \        'CAN_CHECKOUT', 'SOME_OF_THE', 'DOUBLE_PUNCTUATION', 'HELL',
-      \        'CURRENCY', 'POSSESSIVE_APOSTROPHE', 'ENGLISH_WORD_REPEAT_RULE',
-      \        'NON_STANDARD_WORD', 'AU', 'DATE_NEW_YEAR'],
-      \ }
-
-  augroup grammarous_map
-    autocmd!
-    autocmd FileType markdown nmap <buffer> <leader>x <Plug>(grammarous-close-info-window)
-    autocmd FileType markdown nmap <buffer> <c-n> <Plug>(grammarous-move-to-next-error)
-    autocmd FileType markdown nmap <buffer> <c-p> <Plug>(grammarous-move-to-previous-error)
-  augroup END
 endif
 
 """"""""""""""""""""""""unicode.vim settings""""""""""""""""""""""""""""""
@@ -227,46 +202,6 @@ if g:is_win
   let g:asyncrun_encs = 'gbk'
 endif
 
-""""""""""""""""""""""""""""""firenvim settings""""""""""""""""""""""""""""""
-if exists('g:started_by_firenvim') && g:started_by_firenvim
-  if g:is_mac
-    set guifont=Iosevka\ Nerd\ Font:h18
-  else
-    set guifont=Consolas
-  endif
-
-  " general config for firenvim
-  let g:firenvim_config = {
-      \ 'globalSettings': {
-          \ 'alt': 'all',
-      \  },
-      \ 'localSettings': {
-          \ '.*': {
-              \ 'cmdline': 'neovim',
-              \ 'priority': 0,
-              \ 'selector': 'textarea',
-              \ 'takeover': 'never',
-          \ },
-      \ }
-  \ }
-
-  function s:setup_firenvim() abort
-    set signcolumn=no
-    set noruler
-    set noshowcmd
-    set laststatus=0
-    set showtabline=0
-  endfunction
-
-  augroup firenvim
-    autocmd!
-    autocmd BufEnter * call s:setup_firenvim()
-    autocmd BufEnter sqlzoo*.txt set filetype=sql
-    autocmd BufEnter github.com_*.txt set filetype=markdown
-    autocmd BufEnter stackoverflow.com_*.txt set filetype=markdown
-  augroup END
-endif
-
 """"""""""""""""""""""""""""""nvim-gdb settings""""""""""""""""""""""""""""""
 nnoremap <leader>dp :<C-U>GdbStartPDB python -m pdb %<CR>
 
@@ -318,3 +253,10 @@ endfunction
 
 """"""""""""""""""""""""""""""vim-auto-save settings""""""""""""""""""""""""""""""
 let g:auto_save = 1  " enable AutoSave on Vim startup
+
+"""""""""""""""""""""""""""""" Telescope settings """"""""""""""""""""""""""""""""
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>

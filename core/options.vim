@@ -82,7 +82,9 @@ set visualbell noerrorbells  " Do not use visual and errorbells
 set history=500  " The number of command and search history to keep
 
 " Use list mode and customized listchars
-set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+set list
+set listchars=eol:¶,tab:→\ ,multispace:·,trail:·,precedes:«,extends:»
+
 
 " Auto-write the file based on some condition
 set autowrite

@@ -8,8 +8,6 @@ local expr_opts = { noremap = true, expr = true, silent = true }
 keymap.set("i", "kj", "<ESC>", default_opts)
 keymap.set("t", "kj", "<C-\\><C-n>", default_opts)
 
--- Searching
-
 -- Use <space> to search
 keymap.set("", "<space>", "/")
 
@@ -54,18 +52,18 @@ keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
 })
 
 -- Move the cursor based on physical lines, not the actual lines.
-keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-keymap.set("n", "^", "g^")
-keymap.set("n", "0", "g0")
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
+keymap.set("n", "^", "g^", default_opts)
+keymap.set("n", "0", "g0", default_opts)
 
 -- Do not include white space characters when using $ in visual mode,
 -- see https://vi.stackexchange.com/q/12607/15292
 keymap.set("x", "$", "g_")
 
 -- Go to start or end of line easier
-keymap.set({ "n", "x" }, "H", "^")
-keymap.set({ "n", "x" }, "L", "g_")
+keymap.set({ "n", "x" }, "H", "g0", default_opts)
+keymap.set({ "n", "x" }, "L", "g_", default_opts)
 
 -- Continuous visual shifting (does not exit Visual mode), `gv` means
 -- to reselect previous visual area, see https://superuser.com/q/310417/736190
@@ -237,8 +235,8 @@ keymap.set("i", "<C-E>", "<END>")
 -- F1 for command
 keymap.set("", "<F1>", ":", default_opts)
 
--- save Some keystrokes
-keymap.set("", ";", ":", default_opts)
+-- Save some keystrokes
+keymap.set("", ";", ":")
 
 -- Ctrl-j/k to look command history
 keymap.set("c", "<C-j>", "<Home>", default_opts)
