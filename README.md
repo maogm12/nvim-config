@@ -39,7 +39,6 @@
 # Introduction
 
 This repo hosts my Nvim configuration for Linux, macOS, and Windows.
-`init.lua` is the config entry point for terminal Nvim,
 and `ginit.vim` is the additional config file for [GUI client of Nvim](https://github.com/neovim/neovim/wiki/Related-projects#gui).
 
 My configurations are heavily documented to make it as clear as possible.
@@ -61,23 +60,22 @@ and how to set up on different platforms (Linux, macOS, and Windows).
 + Code, snippet, word auto-completion via [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
 + Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 + Git integration via [vim-fugitive](https://github.com/tpope/vim-fugitive).
-+ Better escaping from insert mode via [better-escape.vim](https://github.com/nvim-zh/better-escape.vim).
-+ Ultra-fast project-wide fuzzy searching via [LeaderF](https://github.com/Yggdroot/LeaderF).
-+ Faster code commenting via [vim-commentary](https://github.com/tpope/vim-commentary).
++ Better escaping from insert mode via [max397574/better-escape.nvim](https://github.com/max397574/better-escape.nvim).
++ Highly extendable fuzzy finder via [Telescope](https://github.com/nvim-telescope/telescope.nvim).
++ Faster code commenting via [numToStr/Comment.nvim
+](https://github.com/numToStr/Comment.nvim).
 + Faster matching pair insertion and jump via [delimitMate](https://github.com/Raimondi/delimitMate).
 + Smarter and faster matching pair management (add, replace or delete) via [vim-sandwich](https://github.com/machakann/vim-sandwich).
 + Fast buffer jump via [hop.nvim](https://github.com/phaazon/hop.nvim).
 + Powerful snippet insertion via [Ultisnips](https://github.com/SirVer/ultisnips).
 + Beautiful statusline via [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim).
 + File tree explorer via [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua).
-+ Better quickfix list with [nvim-bqf](https://github.com/kevinhwang91/nvim-bqf).
 + Show search index and count with [nvim-hlslens](https://github.com/kevinhwang91/nvim-hlslens).
 + Command line auto-completion via [wilder.nvim](https://github.com/gelguy/wilder.nvim).
 + User-defined mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
 + Asynchronous code execution via [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim).
 + Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
-+ Code editing using true nvim inside browser via [firenvim](https://github.com/glacambre/firenvim).
-+ Beautiful colorscheme via [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material) and other colorschemes.
++ Beautiful colorscheme via [navarasu/onedark.nvim](https://github.com/navarasu/onedark.nvim).
 + Markdown writing and previewing via [vim-markdown](https://github.com/preservim/vim-markdown) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 + LaTeX editing and previewing via [vimtex](https://github.com/lervag/vimtex)
 + Animated GUI style notification via [nvim-notify](https://github.com/rcarriga/nvim-notify).
@@ -86,66 +84,16 @@ and how to set up on different platforms (Linux, macOS, and Windows).
 + Undo management via [vim-mundo](https://github.com/simnalamburt/vim-mundo)
 + ......
 
-# UI Demo
-
-For more UI demos, check [here](https://github.com/jdhao/nvim-config/issues/15).
-
-## Start screen with dashboard-nvim
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/183256752-fb23b215-a6b8-4646-beed-9999f52d53f1.png" width="800">
-</p>
-
-## File fuzzy finding using LeaderF
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/183257017-2d9d7605-3c4b-4e1d-8955-30998f9b6f28.gif" width="800">
-</p>
-
-## Code autocompletion with nvim-cmp
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/128590006-0fc1451f-fac1-49b2-bb95-8aba21bfa44e.gif" width="800">
-</p>
-
-## Git add, commit and push via fugitive.vim
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/128590833-aaa05d53-19ef-441d-a5a9-ba1bbd3936c1.gif" width="800">
-</p>
-
-## Command-line autocompletion with wilder.nvim
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/147677787-8e5d229a-a16a-420e-98f5-88f2a1be84a2.gif" width="800">
-</p>
-
-## Tags
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/128589584-4036a1a2-2e0a-4bbe-8aaf-ff8b91644648.jpg" width="800">
-</p>
-
-## Cursor jump via hop.nvim
-
-Go to a string starting with `se`
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/139459219-8a7e6ac4-1d24-4008-a370-b56773d7cb85.gif" width="800">
-</p>
-
-## GUI-style notification with nvim-notify
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/16662357/128589873-aadb8264-1098-4834-9876-fa66a309be05.gif" width="800">
-</p>
-
 # Shortcuts
 
 Some of the shortcuts I use frequently are listed here. In the following shortcuts, `<leader>` represents ASCII character `,`.
 
 | Shortcut          | Mode          | platform        | Description                                                              |
 |-------------------|---------------|-----------------|--------------------------------------------------------------------------|
+| `kj`      | Normal        | Linux/macOS/Win | Back to normal mode
+| `<space>`      | Normal        | Linux/macOS/Win | Search
+| `H`      | Normal        | Linux/macOS/Win | Go to linehead
+| `L`      | Normal        | Linux/macOS/Win | Go to lineend
 | `<leader>ff`      | Normal        | Linux/macOS/Win | Fuzzy file searching in a floating window                                |
 | `<leader>fh`      | Normal        | Linux/macOS/Win | Fuzzy help file grepping in a floating window                            |
 | `<leader>fg`      | Normal        | Linux/macOS/Win | Fuzzy project-wide grepping in a floating window                         |
@@ -162,7 +110,6 @@ Some of the shortcuts I use frequently are listed here. In the following shortcu
 | `<leader>y`       | Normal        | Linux/macOS/Win | Copy the content of entire buffer to default register                    |
 | `<leader>cl`      | Normal        | Linux/macOS/Win | Toggle cursor column                                                     |
 | `<leader>cd`      | Normal        | Linux/macOS/Win | Change current working directory to to the dir of current buffer         |
-| `<space>t`        | Normal        | Linux/macOS/Win | Toggle tag window (show project tags in the right window)                |
 | `<leader>gs`      | Normal        | Linux/macOS/Win | Show Git status result                                                   |
 | `<leader>gw`      | Normal        | Linux/macOS/Win | Run Git add for current file                                             |
 | `<leader>gd`      | Normal        | Linux/macOS/Win | Run git diff for current file                                            |
@@ -183,9 +130,8 @@ Some of the shortcuts I use frequently are listed here. In the following shortcu
 | `Alt-m`           | Normal        | macOS/Win       | Markdown previewing in system browser                                    |
 | `Alt-Shift-m`     | Normal        | macOS/Win       | Stopping Markdown previewing in system browser                           |
 | `ob`              | Normal/Visual | macOS/Win       | Open link under cursor or search visual selection                        |
-| `ctrl-u`          | Insert        | Linux/macOS/Win | Turn word under cursor to upper case                                     |
-| `ctrl-t`          | Insert        | Linux/macOS/Win | Turn word under cursor to title case                                     |
-| `jk`              | Insert        | Linux/macOS/Win | Return to Normal mode without lagging                                    |
+| `<leader>cc`              | Normal/Visual | macOS/Win       | Comment current line/selection in line style |
+| `<leader>cb`              | Normal/Visual | macOS/Win       | Comment current line/selection in block style |
 
 # Custom commands
 

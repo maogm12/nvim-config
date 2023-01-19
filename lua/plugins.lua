@@ -119,8 +119,11 @@ packer.startup {
       requires = { { "nvim-lua/plenary.nvim" } },
     }
 
-    -- search emoji and other symbols
-    use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
+    -- telescope plugin for searching emoji and other symbols
+    use {
+      "nvim-telescope/telescope-symbols.nvim",
+      after = "telescope.nvim"
+    }
 
     -- telescope plugin for showing editing history
     use {
@@ -128,7 +131,8 @@ packer.startup {
       config = function()
         require"telescope".load_extension("frecency")
       end,
-      requires = {"kkharji/sqlite.lua"}
+      requires = {"kkharji/sqlite.lua"},
+      after = "telescope.nvim"
     }
 
     -- devicons, need a patched NERD font
@@ -195,7 +199,10 @@ packer.startup {
     use { "Raimondi/delimitMate", event = "InsertEnter" }
 
     -- Comment plugin
-    use { "tpope/vim-commentary", event = "VimEnter" }
+    use {
+      'numToStr/Comment.nvim',
+      config = [[require('config.Comment')]] 
+    }
 
     -- Autosave files on certain events
     use { "907th/vim-auto-save", event = "InsertEnter" }
@@ -241,8 +248,6 @@ packer.startup {
     -- Better git commit experience
     use { "rhysd/committia.vim", opt = true, setup = [[vim.cmd('packadd committia.vim')]] }
     -----------------------------------------------
-
-    use { "kevinhwang91/nvim-bqf", ft = "qf", config = [[require('config.bqf')]] }
 
     -- Another markdown plugin
     use { "preservim/vim-markdown", ft = { "markdown" } }
@@ -337,10 +342,12 @@ packer.startup {
     -- colorscheme onedark
     use 'navarasu/onedark.nvim'
 
-    use {
-      'f-person/auto-dark-mode.nvim',
-      config = [[require('config.auto-dark-mode')]]
-    }
+    if vim.g.is_mac then
+      use {
+        'f-person/auto-dark-mode.nvim',
+        config = [[require('config.auto-dark-mode')]]
+      }
+    end
 
   end,
   config = {
