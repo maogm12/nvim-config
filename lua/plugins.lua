@@ -117,11 +117,19 @@ packer.startup {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
       requires = { { "nvim-lua/plenary.nvim" } },
-      config = [[require('config.telescope')]],
     }
 
     -- search emoji and other symbols
     use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
+
+    -- telescope plugin for showing editing history
+    use {
+      "nvim-telescope/telescope-frecency.nvim",
+      config = function()
+        require"telescope".load_extension("frecency")
+      end,
+      requires = {"kkharji/sqlite.lua"}
+    }
 
     -- devicons, need a patched NERD font
     use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
