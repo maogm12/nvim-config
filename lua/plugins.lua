@@ -349,6 +349,9 @@ packer.startup {
       }
     end
 
+    -- measure startup time
+    use 'dstein64/vim-startuptime'
+
   end,
   config = {
     max_jobs = 16,

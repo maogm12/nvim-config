@@ -28,7 +28,7 @@ dashboard.custom_center = {
   {
     icon = "  ",
     desc = "Recently opened files                   ",
-    action = "Telescope popup",
+    action = "Telescope frecency",
     shortcut = "<leader> f r",
   },
   {
