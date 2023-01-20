@@ -116,7 +116,15 @@ packer.startup {
     use {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
-      requires = { { "nvim-lua/plenary.nvim" } },
+      requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep" },
+    }
+
+    use {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      config = function()
+        require"telescope".load_extension("fzf")
+      end
     }
 
     -- telescope plugin for searching emoji and other symbols
@@ -126,6 +134,12 @@ packer.startup {
     }
 
     -- telescope plugin for showing editing history
+    use {
+      "kkharji/sqlite.lua",
+      setup = [[require('setup.sqlite')]],
+      requires = "nvim-lua/plenary.nvim",
+    }
+
     use {
       "nvim-telescope/telescope-frecency.nvim",
       config = function()
@@ -351,6 +365,9 @@ packer.startup {
 
     -- measure startup time
     use 'dstein64/vim-startuptime'
+
+    -- floating window for terminal
+    use 'voldikss/vim-floaterm'
 
   end,
   config = {

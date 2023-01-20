@@ -54,6 +54,12 @@ No effort is spent on maintaining backward compatibility.**
 See [doc here](docs/README.md) on how to install Nvim's dependencies, Nvim itself,
 and how to set up on different platforms (Linux, macOS, and Windows).
 
+## ripgrep
+
+```
+brew install ripgrep
+```
+
 # Features #
 
 + Plugin management via [Packer.nvim](https://github.com/wbthomason/packer.nvim).
