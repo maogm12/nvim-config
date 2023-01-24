@@ -171,7 +171,8 @@ packer.startup {
     use { "akinsho/bufferline.nvim", event = "VimEnter",
       cond = firenvim_not_active,
       config = [[require('config.bufferline')]],
-      after = 'famiu/bufdelete.nvim'
+      requires = "famiu/bufdelete.nvim",
+      after = 'bufdelete.nvim'
     }
 
     -- fancy start screen
