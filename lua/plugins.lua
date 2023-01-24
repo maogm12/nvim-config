@@ -112,6 +112,9 @@ packer.startup {
       config = [[require('config.hlslens')]],
     }
 
+    -------------------------------------------------------------------------------------------------------------------
+    -- Telescope
+    -------------------------------------------------------------------------------------------------------------------
     -- File search, tag search and more
     use {
       "nvim-telescope/telescope.nvim",
@@ -124,7 +127,8 @@ packer.startup {
       run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
       config = function()
         require"telescope".load_extension("fzf")
-      end
+      end,
+      after = "telescope.nvim"
     }
 
     -- telescope plugin for searching emoji and other symbols
@@ -160,10 +164,15 @@ packer.startup {
       config = [[require('config.statusline')]],
     }
 
+    -- better buffer delete
+    use 'famiu/bufdelete.nvim'
+
     -- render buffers as tabs
     use { "akinsho/bufferline.nvim", event = "VimEnter",
       cond = firenvim_not_active,
-      config = [[require('config.bufferline')]] }
+      config = [[require('config.bufferline')]],
+      after = 'famiu/bufdelete.nvim'
+    }
 
     -- fancy start screen
     use { "glepnir/dashboard-nvim", event = "VimEnter",

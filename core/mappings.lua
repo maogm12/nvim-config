@@ -135,24 +135,19 @@ keymap.set("x", "p", '"_c<Esc>p')
 --------------- buffer/tab ------------------
 
 -- Go to a certain buffer
-keymap.set("n", "<right>", '<cmd>call buf_utils#GoToBuffer(v:count, "forward")<cr>', {
-  desc = "go to buffer (forward)",
-})
-keymap.set("n", "<left>", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>', {
-  desc = "go to buffer (backward)",
-})
+keymap.set("n", "<right>", '<cmd>BufferLineCycleNext<cr>', default_opts)
+keymap.set("n", "<left>", '<cmd>BufferLineCyclePrev<cr>', default_opts)
 
--- fast way to navigate to a specific tab in normal mode
-keymap.set("n", "<leader>1", "1gt", default_opts)
-keymap.set("n", "<leader>2", "2gt", default_opts)
-keymap.set("n", "<leader>3", "3gt", default_opts)
-keymap.set("n", "<leader>4", "4gt", default_opts)
-keymap.set("n", "<leader>5", "5gt", default_opts)
-keymap.set("n", "<leader>6", "6gt", default_opts)
-keymap.set("n", "<leader>7", "7gt", default_opts)
-keymap.set("n", "<leader>8", "8gt", default_opts)
-keymap.set("n", "<leader>9", "9gt", default_opts)
-keymap.set("n", "<leader>0", ":tablast<cr>", default_opts)
+-- fast way to navigate to a specific buffer in normal mode
+keymap.set("n", "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", default_opts)
+keymap.set("n", "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", default_opts)
+keymap.set("n", "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", default_opts)
+keymap.set("n", "<leader>4", "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", default_opts)
+keymap.set("n", "<leader>5", "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", default_opts)
+keymap.set("n", "<leader>6", "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", default_opts)
+keymap.set("n", "<leader>7", "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", default_opts)
+keymap.set("n", "<leader>8", "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", default_opts)
+keymap.set("n", "<leader>9", "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", default_opts)
 
 -- tab navigation
 keymap.set("", "<leader>th", ":tabfirst<cr>")
@@ -167,10 +162,10 @@ keymap.set("", "<leader>td", ":tabclose<cr>")
 ---------------- window ----------------------
 
 -- Resizing panes
--- keymap.set("n", "<Left>", ":vertical resize +1<CR>", default_opts)
--- keymap.set("n", "<Right>", ":vertical resize -1<CR>", default_opts)
--- keymap.set("n", "<Up>", ":resize -1<CR>", default_opts)
--- keymap.set("n", "<Down>", ":resize +1<CR>", default_opts)
+keymap.set("", "<S-left>", ":vertical resize +1<CR>", default_opts)
+keymap.set("", "<S-right>", ":vertical resize -1<CR>", default_opts)
+keymap.set("", "<S-up>", ":resize -1<CR>", default_opts)
+keymap.set("", "<S-down>", ":resize +1<CR>", default_opts)
 
 -- Move between windows
 keymap.set("", "<C-j>", "<C-w>j", default_opts)

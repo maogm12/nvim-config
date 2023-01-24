@@ -1,11 +1,15 @@
 require('bufferline').setup {
   options = {
     mode = "buffers", -- show buffer
-    numbers = "none",
-    close_command = "bdelete! %d", -- delete the buffer
-    right_mouse_command = "bdelete! %d", -- right click to delete the buffer
+    numbers = "ordinal", -- show ordinal numbers for buffers
+    close_command = function(bufnum) -- delete the buffer
+      require('bufdelete').bufdelete(bufnum, true)
+    end,
+    right_mouse_command = function(bufnum) -- delete the buffer
+      require('bufdelete').bufdelete(bufnum, true)
+    end,
     left_mouse_command = "buffer %d", -- left click to choose the buffer
-    middle_mouse_command = nil, -- no middle mouse click
+    middle_mouse_command = nil, -- not handling middle mouse click
     indicator = {
       style = 'underline'
     },
