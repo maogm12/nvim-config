@@ -45,12 +45,6 @@ keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
   desc = "close qf and location list",
 })
 
--- Delete a buffer, without closing the window, see https://stackoverflow.com/q/4465095/6064933
-keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
-  silent = true,
-  desc = "delete buffer",
-})
-
 -- Move the cursor based on physical lines, not the actual lines.
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
@@ -139,15 +133,15 @@ keymap.set("n", "<right>", '<cmd>BufferLineCycleNext<cr>', default_opts)
 keymap.set("n", "<left>", '<cmd>BufferLineCyclePrev<cr>', default_opts)
 
 -- fast way to navigate to a specific buffer in normal mode
-keymap.set("n", "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", default_opts)
-keymap.set("n", "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", default_opts)
-keymap.set("n", "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", default_opts)
-keymap.set("n", "<leader>4", "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", default_opts)
-keymap.set("n", "<leader>5", "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", default_opts)
-keymap.set("n", "<leader>6", "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", default_opts)
-keymap.set("n", "<leader>7", "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", default_opts)
-keymap.set("n", "<leader>8", "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", default_opts)
-keymap.set("n", "<leader>9", "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", default_opts)
+keymap.set("n", "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", { desc = 'go to buffer 1' })
+keymap.set("n", "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", { desc = 'go to buffer 2' })
+keymap.set("n", "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", { desc = 'go to buffer 3' })
+keymap.set("n", "<leader>4", "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", { desc = 'go to buffer 4' })
+keymap.set("n", "<leader>5", "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", { desc = 'go to buffer 5' })
+keymap.set("n", "<leader>6", "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", { desc = 'go to buffer 6' })
+keymap.set("n", "<leader>7", "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", { desc = 'go to buffer 7' })
+keymap.set("n", "<leader>8", "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", { desc = 'go to buffer 8' })
+keymap.set("n", "<leader>9", "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", { desc = 'go to buffer 9' })
 
 -- tab navigation
 keymap.set("", "<leader>th", ":tabfirst<cr>")

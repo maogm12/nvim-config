@@ -36,11 +36,6 @@ vim.cmd("packadd packer.nvim")
 local packer = require("packer")
 local packer_util = require("packer.util")
 
--- check if firenvim is active
-local firenvim_not_active = function()
-  return not vim.g.started_by_firenvim
-end
-
 packer.startup {
   function(use)
     -- it is recommended to put impatient.nvim before any other plugins
@@ -87,12 +82,6 @@ packer.startup {
     -- swap delimited items
     use { "machakann/vim-swap", event = "VimEnter" }
 
-    -- IDE for Lisp
-    if utils.executable("sbcl") then
-      -- use 'kovisoft/slimv'
-      use { "vlime/vlime", rtp = "vim/", ft = { "lisp" } }
-    end
-
     -- Super fast buffer jump
     use {
       "phaazon/hop.nvim",
@@ -123,8 +112,8 @@ packer.startup {
     }
 
     use {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      "nvim-telescope/telescope-fzf-native.nvim",
+      run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
       config = function()
         require"telescope".load_extension("fzf")
       end,
@@ -160,24 +149,23 @@ packer.startup {
     use {
       "nvim-lualine/lualine.nvim",
       event = "VimEnter",
-      cond = firenvim_not_active,
       config = [[require('config.statusline')]],
     }
 
     -- better buffer delete
-    use 'famiu/bufdelete.nvim'
+    use "famiu/bufdelete.nvim"
 
     -- render buffers as tabs
-    use { "akinsho/bufferline.nvim", event = "VimEnter",
-      cond = firenvim_not_active,
+    use { "akinsho/bufferline.nvim",
+      event = "VimEnter",
       config = [[require('config.bufferline')]],
       requires = "famiu/bufdelete.nvim",
       after = 'bufdelete.nvim'
     }
 
     -- fancy start screen
-    use { "glepnir/dashboard-nvim", event = "VimEnter",
-      cond = firenvim_not_active,
+    use { "glepnir/dashboard-nvim",
+      event = "VimEnter",
       config = [[require('config.dashboard-nvim')]]
     }
 
@@ -364,7 +352,7 @@ packer.startup {
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = [[require('config.fidget-nvim')]] }
 
     -- colorscheme onedark
-    use 'navarasu/onedark.nvim'
+    use "navarasu/onedark.nvim"
 
     if vim.g.is_mac then
       use {
@@ -374,10 +362,10 @@ packer.startup {
     end
 
     -- measure startup time
-    use 'dstein64/vim-startuptime'
+    use "dstein64/vim-startuptime"
 
     -- floating window for terminal
-    use 'voldikss/vim-floaterm'
+    use "voldikss/vim-floaterm"
 
   end,
   config = {
