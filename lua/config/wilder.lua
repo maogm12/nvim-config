@@ -24,7 +24,7 @@ wilder.set_option('renderer', wilder.popupmenu_renderer(
     border = 'rounded',
     highlighter = wilder.basic_highlighter(),
     highlights = {
-        accent = wilder.make_hl('WilderAccent', 'Pmenu', {{}, {}, {foreground = '#f4468f'}}),
+        accent = wilder.make_hl('WilderAccent', 'Pmenu', {{a = 1}, {a = 1}, {foreground = '#d19a66'}}),
         border = 'Normal', -- highlight to use for the border
     },
     max_height = 15,
