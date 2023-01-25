@@ -1,3 +1,5 @@
+local keymap = vim.keymap
+
 require('bufferline').setup {
   options = {
     mode = "buffers", -- show buffer
@@ -75,3 +77,29 @@ require('bufferline').setup {
     sort_by = 'id'
   }
 }
+
+-- go to left/right
+keymap.set("n", "<right>", '<cmd>BufferLineCycleNext<cr>', { desc = 'go to next buffer' })
+keymap.set("n", "<left>", '<cmd>BufferLineCyclePrev<cr>', { desc = 'go to previous buffer' })
+
+-- fast way to navigate to a specific buffer in normal mode
+keymap.set("n", "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", { desc = 'go to buffer 1' })
+keymap.set("n", "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", { desc = 'go to buffer 2' })
+keymap.set("n", "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", { desc = 'go to buffer 3' })
+keymap.set("n", "<leader>4", "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", { desc = 'go to buffer 4' })
+keymap.set("n", "<leader>5", "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", { desc = 'go to buffer 5' })
+keymap.set("n", "<leader>6", "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", { desc = 'go to buffer 6' })
+keymap.set("n", "<leader>7", "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", { desc = 'go to buffer 7' })
+keymap.set("n", "<leader>8", "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", { desc = 'go to buffer 8' })
+keymap.set("n", "<leader>9", "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", { desc = 'go to buffer 9' })
+
+-- '\x' to close other buffers
+keymap.set("n", [[\x]], function()
+  vim.cmd([[
+    BufferLineCloseRight
+    BufferLineCloseLeft
+  ]])
+end, { 
+  silent = true,
+  desc = "close other buffers"
+})

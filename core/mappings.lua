@@ -22,9 +22,13 @@ keymap.set("n", "g*", "g*zz", default_opts)
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
 
--- We use <Shift-h> and <Shift-l> to move the line head/end
+--Shift-h/l to the line head/end
 keymap.set("n", "<S-h>", "0", default_opts)
 keymap.set("n", "<S-l>", "$", default_opts)
+
+-- Ctrl-A/E to the line head/end in insert mode
+keymap.set("i", "<C-A>", "<HOME>")
+keymap.set("i", "<C-E>", "<END>")
 
 -- Cancel search highlighting with ESC
 keymap.set("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_opts)
@@ -38,12 +42,6 @@ keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save bu
 
 -- Saves the file if modified and quit
 keymap.set("n", "<leader>q", "<cmd>x<cr>", { silent = true, desc = "quit current window" })
-
--- Close location list or quickfix list if they are present, see https://superuser.com/q/355325/736190
-keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
-  silent = true,
-  desc = "close qf and location list",
-})
 
 -- Move the cursor based on physical lines, not the actual lines.
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
@@ -87,22 +85,12 @@ keymap.set("n", "<leader>v", "printf('`[%s`]', getregtype()[0])", {
   desc = "reselect last pasted area",
 })
 
--- Search in selected region
--- xnoremap / :<C-U>call feedkeys('/\%>'.(line("'<")-1).'l\%<'.(line("'>")+1)."l")<CR>
-
 -- Change current working directory locally and print cwd after that,
 -- see https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
 keymap.set("n", "<leader>cd", "<cmd>lcd %:p:h<cr><cmd>pwd<cr>", { desc = "change cwd" })
 
 -- Use Esc to quit builtin terminal
 keymap.set("t", "<Esc>", [[<c-\><c-n>]])
-
--- Toggle spell checking
-keymap.set("n", "<F11>", "<cmd>set spell!<cr>", { desc = "toggle spell" })
-keymap.set("i", "<F11>", "<c-o><cmd>set spell!<cr>", { desc = "toggle spell" })
-
--- Remove trailing whitespace characters
-keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
 
 -- check the syntax group of current cursor position
 keymap.set("n", "<leader>st", "<cmd>call utils#SynGroup()<cr>", { desc = "check syntax group" })
@@ -113,65 +101,21 @@ keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })
 -- Toggle cursor column
 keymap.set("n", "<leader>cl", "<cmd>call utils#ToggleCursorCol()<cr>", { desc = "toggle cursor column" })
 
--- Move current line up and down
-keymap.set("n", "<A-k>", '<cmd>call utils#SwitchLine(line("."), "up")<cr>', { desc = "move line up" })
-keymap.set("n", "<A-j>", '<cmd>call utils#SwitchLine(line("."), "down")<cr>', { desc = "move line down" })
-
--- Move current visual-line selection up and down
-keymap.set("x", "<A-k>", '<cmd>call utils#MoveSelection("up")<cr>', { desc = "move selection up" })
-
-keymap.set("x", "<A-j>", '<cmd>call utils#MoveSelection("down")<cr>', { desc = "move selection down" })
-
 -- Replace visual selection with text in register, but not contaminate the register,
 -- see also https://stackoverflow.com/q/10723700/6064933.
 keymap.set("x", "p", '"_c<Esc>p')
 
---------------- buffer/tab ------------------
-
--- Go to a certain buffer
-keymap.set("n", "<right>", '<cmd>BufferLineCycleNext<cr>', default_opts)
-keymap.set("n", "<left>", '<cmd>BufferLineCyclePrev<cr>', default_opts)
-
--- fast way to navigate to a specific buffer in normal mode
-keymap.set("n", "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", { desc = 'go to buffer 1' })
-keymap.set("n", "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", { desc = 'go to buffer 2' })
-keymap.set("n", "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", { desc = 'go to buffer 3' })
-keymap.set("n", "<leader>4", "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", { desc = 'go to buffer 4' })
-keymap.set("n", "<leader>5", "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", { desc = 'go to buffer 5' })
-keymap.set("n", "<leader>6", "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", { desc = 'go to buffer 6' })
-keymap.set("n", "<leader>7", "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", { desc = 'go to buffer 7' })
-keymap.set("n", "<leader>8", "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", { desc = 'go to buffer 8' })
-keymap.set("n", "<leader>9", "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", { desc = 'go to buffer 9' })
-
--- tab navigation
-keymap.set("", "<leader>th", ":tabfirst<cr>")
-keymap.set("", "<leader>tl", ":tablast<cr>")
-keymap.set("", "<leader>tj", ":tabnext<cr>")
-keymap.set("", "<leader>tk", ":tabprev<cr>")
-
--- tab operation
-keymap.set("", "<leader>te", ":tabedit<cr>")
-keymap.set("", "<leader>td", ":tabclose<cr>")
-
----------------- window ----------------------
-
--- Resizing panes
-keymap.set("", "<S-left>", ":vertical resize +1<CR>", default_opts)
-keymap.set("", "<S-right>", ":vertical resize -1<CR>", default_opts)
-keymap.set("", "<S-up>", ":resize -1<CR>", default_opts)
-keymap.set("", "<S-down>", ":resize +1<CR>", default_opts)
+-- Shift-arrows to resize panes
+keymap.set("", "<S-left>", ":vertical resize +2<CR>", default_opts)
+keymap.set("", "<S-right>", ":vertical resize -2<CR>", default_opts)
+keymap.set("", "<S-up>", ":resize -2<CR>", default_opts)
+keymap.set("", "<S-down>", ":resize +2<CR>", default_opts)
 
 -- Move between windows
 keymap.set("", "<C-j>", "<C-w>j", default_opts)
 keymap.set("", "<C-k>", "<C-w>k", default_opts)
 keymap.set("", "<C-h>", "<C-w>h", default_opts)
 keymap.set("", "<C-l>", "<C-w>l", default_opts)
-
--- Text objects for URL
-keymap.set({ "x", "o" }, "iu", "<cmd>call text_obj#URL()<cr>", { desc = "URL text object" })
-
--- Text objects for entire buffer
-keymap.set({ "x", "o" }, "iB", "<cmd>call text_obj#Buffer()<cr>", { desc = "buffer text object" })
 
 -- Do not move my cursor when joining lines.
 keymap.set("n", "J", function()
@@ -199,9 +143,6 @@ for _, ch in ipairs(undo_ch) do
   keymap.set("i", ch, ch .. "<c-g>u")
 end
 
--- insert semicolon in the end
-keymap.set("i", "<A-;>", "<Esc>miA;<Esc>`ii")
-
 -- Keep cursor position after yanking
 keymap.set("n", "y", "myy")
 
@@ -216,13 +157,8 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Go to the beginning and end of current line in insert mode quickly
-keymap.set("i", "<C-A>", "<HOME>")
-keymap.set("i", "<C-E>", "<END>")
-
--- Command line
 -- F1 for command
-keymap.set("", "<F1>", ":", default_opts)
+keymap.set("", "<F1>", ":")
 
 -- Save some keystrokes
 keymap.set("", ";", ":")
@@ -238,6 +174,7 @@ keymap.set("c", "<C-e>", "<End>", default_opts)
 -- Delete the character to the right of the cursor
 keymap.set("i", "<C-D>", "<DEL>")
 
+-- Flash cursorline and cursorcolumn
 keymap.set("n", "<leader>cb", function()
   local cnt = 0
   local blink_times = 7
@@ -255,4 +192,31 @@ keymap.set("n", "<leader>cb", function()
 
     cnt = cnt + 1
   end))
-end)
+end, {
+  silent = true,
+  desc = "find my cursor"
+})
+
+-------------------------------------------------------------------------------
+--------------------------------{ Plugins }------------------------------------
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+--------------------{ vim-strip-trailing-whitespace }--------------------------
+-------------------------------------------------------------------------------
+-- Remove trailing whitespace characters
+keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
+
+-------------------------------------------------------------------------------
+-------------------------------{ Telescope }-----------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { silent = true, desc = "telescope find files" })
+keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { silent = true, desc = "telescope live grep" })
+keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { silent = true, desc = "telescope find buffers" })
+keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { silent = true, desc = "telescope find help tags" })
+keymap.set("n", "<leader>fr", "<cmd>Telescope frecency<cr>", { silent = true, desc = "telescope recent files" })
+
+-------------------------------------------------------------------------------
+---------------------------{ Floating terminal }-------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "<leader>`", "<cmd>FloatermToggle<cr>", { silent = true, desc = "toggle float terminal" })

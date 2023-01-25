@@ -290,7 +290,11 @@ packer.startup {
 
     -- Only use these plugin on Windows and Mac and when LaTeX is installed
     if utils.executable("latex") then
-      use { "lervag/vimtex", ft = { "tex" } }
+      use {
+        "lervag/vimtex",
+        ft = { "tex" },
+        -- config = [[require('config.vimtex')]]
+      }
     end
 
     -- Since tmux is only available on Linux and Mac, we only enable these plugins
@@ -312,7 +316,11 @@ packer.startup {
 
     -- Debugger plugin
     if vim.g.is_win or vim.g.is_linux then
-      use { "sakhnik/nvim-gdb", run = { "bash install.sh" }, opt = true, setup = [[vim.cmd('packadd nvim-gdb')]] }
+      use {
+        "sakhnik/nvim-gdb",
+        run = { "bash install.sh" },
+        opt = true,
+        setup = [[vim.cmd('packadd nvim-gdb')]] }
     end
 
     -- Session management plugin
@@ -323,7 +331,10 @@ packer.startup {
     end
 
     -- The missing auto-completion for cmdline!
-    use { "gelguy/wilder.nvim", opt = true, setup = [[vim.cmd('packadd wilder.nvim')]] }
+    use { "gelguy/wilder.nvim",
+      setup = [[vim.cmd('packadd wilder.nvim')]],
+      config = [[require('config.wilder')]]
+    }
 
     -- showing keybindings
     use {
