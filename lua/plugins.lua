@@ -331,9 +331,11 @@ packer.startup {
     end
 
     -- The missing auto-completion for cmdline!
-    use { "gelguy/wilder.nvim",
-      setup = [[vim.cmd('packadd wilder.nvim')]],
-      config = [[require('config.wilder')]]
+    use {
+      "gelguy/wilder.nvim",
+      opt = true,
+      event = "VimEnter",
+      config = [[require('config.wilder')]],
     }
 
     -- showing keybindings
@@ -365,9 +367,11 @@ packer.startup {
     -- colorscheme onedark
     use "navarasu/onedark.nvim"
 
+    -- auto dark mode
     if vim.g.is_mac then
       use {
         'f-person/auto-dark-mode.nvim',
+        after = 'onedark.nvim',
         config = [[require('config.auto-dark-mode')]]
       }
     end
@@ -382,6 +386,11 @@ packer.startup {
   config = {
     max_jobs = 16,
     compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end
+    },
   },
 }
 
