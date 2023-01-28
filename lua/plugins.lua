@@ -305,7 +305,11 @@ packer.startup {
     end
 
     -- Modern matchit implementation
-    use { "andymass/vim-matchup", event = "VimEnter" }
+    use {
+      "andymass/vim-matchup",
+      event = "VimEnter",
+      setup = [[require('vim-matchup')]],
+    }
 
     use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
 
