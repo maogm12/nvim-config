@@ -186,6 +186,3 @@ endif
 
 """"""""""""""""""""""""""""""nvim-gdb settings""""""""""""""""""""""""""""""
 nnoremap <leader>dp :<C-U>GdbStartPDB python -m pdb %<CR>
-
-""""""""""""""""""""""""""""""vim-auto-save settings""""""""""""""""""""""""""""""
-let g:auto_save = 1  " enable AutoSave on Vim startup

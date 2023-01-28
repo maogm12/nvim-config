@@ -216,9 +216,6 @@ packer.startup {
       config = [[require('config.Comment')]] 
     }
 
-    -- Autosave files on certain events
-    use { "907th/vim-auto-save", event = "InsertEnter" }
-
     -- Show undo history visually
     use { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } }
 
