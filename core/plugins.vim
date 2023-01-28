@@ -175,14 +175,3 @@ omap s <Nop>
 "      endfunction
 "    endif
 "  endif
-
-"""""""""""""""""""""""""" asyncrun.vim settings """"""""""""""""""""""""""
-" Automatically open quickfix window of 6 line tall after asyncrun starts
-let g:asyncrun_open = 6
-if g:is_win
-  " Command output encoding for Windows
-  let g:asyncrun_encs = 'gbk'
-endif
-
-""""""""""""""""""""""""""""""nvim-gdb settings""""""""""""""""""""""""""""""
-nnoremap <leader>dp :<C-U>GdbStartPDB python -m pdb %<CR>

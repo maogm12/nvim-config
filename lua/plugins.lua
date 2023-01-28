@@ -310,19 +310,17 @@ packer.startup {
 
     use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
 
-    -- Asynchronous command execution
-    use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
-
     use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
 
-    -- Debugger plugin
-    if vim.g.is_win or vim.g.is_linux then
-      use {
-        "sakhnik/nvim-gdb",
-        run = { "bash install.sh" },
-        opt = true,
-        setup = [[vim.cmd('packadd nvim-gdb')]] }
-    end
+    -- Portable package manager for Neovim
+    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+    use {
+      "williamboman/mason.nvim",
+      config = function() require("mason").setup() end
+    }
+
+    -- Debugger
+    use "mfussenegger/nvim-dap"
 
     -- Session management plugin
     use { "tpope/vim-obsession", cmd = "Obsession" }

@@ -79,7 +79,6 @@ brew install ripgrep
 + Show search index and count with [nvim-hlslens](https://github.com/kevinhwang91/nvim-hlslens).
 + Command line auto-completion via [wilder.nvim](https://github.com/gelguy/wilder.nvim).
 + User-defined mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
-+ Asynchronous code execution via [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim).
 + Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 + Beautiful colorscheme via [navarasu/onedark.nvim](https://github.com/navarasu/onedark.nvim).
 + Markdown writing and previewing via [vim-markdown](https://github.com/preservim/vim-markdown) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
