@@ -290,7 +290,7 @@ packer.startup {
       use {
         "lervag/vimtex",
         ft = { "tex" },
-        -- config = [[require('config.vimtex')]]
+        config = [[require('config.vimtex')]]
       }
     end
 
