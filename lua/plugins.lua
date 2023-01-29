@@ -194,17 +194,51 @@ packer.startup {
     -- not be possible since we maybe in a server which disables GUI.
     if vim.g.is_win or vim.g.is_mac then
       -- open URL in browser
-      use { "tyru/open-browser.vim", event = "VimEnter" }
+      use {
+        "tyru/open-browser.vim",
+        event = "VimEnter",
+        config = function()
+          -- Disable netrw's gx mapping.
+          vim.g.netrw_nogx = 1
+        end
+      }
     end
 
     -- Only install these plugins if ctags are installed on the system
     if utils.executable("ctags") then
       -- show file tags in vim window
-      use { "liuchengxu/vista.vim", cmd = "Vista" }
+      use {
+        "liuchengxu/vista.vim",
+        cmd = "Vista",
+        config = function()
+          -- Do not echo message on command line
+          vim.g.vista_echo_cursor = 0
+          -- Stay in current window when vista window is opened
+          vim.g.vista_stay_on_open = 0
+        end
+      }
     end
 
     -- Snippet engine and snippet template
-    use { "SirVer/ultisnips", event = "InsertEnter" }
+    use {
+      "SirVer/ultisnips",
+      event = "InsertEnter",
+      config = function()
+        -- Trigger configuration.
+        vim.g.UltiSnipsExpandTrigger='<tab>'
+
+        -- Do not look for SnipMate snippets
+        vim.g.UltiSnipsEnableSnipMate = 0
+
+        -- Shortcut to jump forward and backward in tabstop positions
+        vim.g.UltiSnipsJumpForwardTrigger='<c-j>'
+        vim.g.UltiSnipsJumpBackwardTrigger='<c-k>'
+
+        -- Configuration for custom snippets directory, see
+        --" https://jdhao.github.io/2019/04/17/neovim_snippet_s1/ for details.
+        vim.g.UltiSnipsSnippetDirectories= { 'UltiSnips', 'my_snippets' }
+      end
+    }
     use { "honza/vim-snippets", after = "ultisnips" }
 
     -- Automatic insertion and deletion of a pair of characters
@@ -217,7 +251,11 @@ packer.startup {
     }
 
     -- Show undo history visually
-    use { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } }
+    use {
+      "simnalamburt/vim-mundo",
+      cmd = { "MundoToggle", "MundoShow" },
+      config = [[require('config.vim-mundo')]],
+    }
 
     -- better UI for some nvim actions
     use {'stevearc/dressing.nvim'}
@@ -277,9 +315,6 @@ packer.startup {
       "chrisbra/unicode.vim",
       event = "VimEnter",
       keys = { "ga" },
-      config = function()
-        vim.keymap.set({"n"}, "ga", ":UnicodeName<cr>", { desc = "identify character under cursor" })
-      end
      }
 
     -- Additional powerful text object for vim, this plugin should be studied
@@ -287,11 +322,7 @@ packer.startup {
     use { "wellle/targets.vim", event = "VimEnter" }
 
     -- Plugin to manipulate character pairs quickly
-    use {
-      "machakann/vim-sandwich",
-      event = "VimEnter",
-      config = [[require('config.vim-sandwich')]]
-    }
+    use { "machakann/vim-sandwich", event = "VimEnter" }
 
     -- Add indent object for vim (useful for languages like Python)
     use { "michaeljsmith/vim-indent-object", event = "VimEnter" }

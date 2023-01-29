@@ -208,7 +208,7 @@ end, {
 keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = "remove trailing space" })
 
 -------------------------------------------------------------------------------
--------------------------------{ Telescope }-----------------------------------
+-------------------------------{ telescope }-----------------------------------
 -------------------------------------------------------------------------------
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { silent = true, desc = "telescope find files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { silent = true, desc = "telescope live grep" })
@@ -217,6 +217,41 @@ keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { silent = true, d
 keymap.set("n", "<leader>fr", "<cmd>Telescope frecency<cr>", { silent = true, desc = "telescope recent files" })
 
 -------------------------------------------------------------------------------
----------------------------{ Floating terminal }-------------------------------
+---------------------------{ vim-floaterm }------------------------------------
 -------------------------------------------------------------------------------
 keymap.set("n", "<leader>`", "<cmd>FloatermToggle<cr>", { silent = true, desc = "toggle float terminal" })
+
+-------------------------------------------------------------------------------
+---------------------------{ vim-sandwich }------------------------------------
+-------------------------------------------------------------------------------
+-- Map s to nop since s in used by vim-sandwich. Use cl instead of s.
+keymap.set({"n", "o"}, "s", "<Nop>", { desc = "disable s, use cl instead" })
+
+-------------------------------------------------------------------------------
+---------------------------{ unicode.vim }-------------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "ga", ":UnicodeName<cr>", { desc = "identify character under cursor" })
+
+-------------------------------------------------------------------------------
+---------------------------{ vim-mnudo }---------------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "<leader>u", ":MundoToggle<cr>", {
+  noremap = true,
+  silent = true,
+  desc = "show undo history"
+})
+
+-------------------------------------------------------------------------------
+---------------------------{ vista.nvim }--------------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "<leader>t", ":<C-u>Vista!!<cr>", {
+  noremap = true,
+  silent = true,
+  desc = "show lsp symbols/tags"
+})
+
+-------------------------------------------------------------------------------
+---------------------------{ open-browser.vim }--------------------------------
+-------------------------------------------------------------------------------
+-- Use another mapping for the open URL method
+keymap.set({"n", "x"}, "ob", "<Plug>(openbrowser-smart-search)", { desc = "search in browser" })

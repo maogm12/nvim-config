@@ -21,12 +21,12 @@ if nvim_ver ~= expected_ver then
   return
 end
 
+
+require("globals") -- global settings
+
 local core_conf_files = {
-  "globals.lua", -- some global settings
   "options.vim", -- setting options in nvim
   "autocommands.vim", -- various autocommands
-  "mappings.lua", -- all the user-defined mappings
-  "plugins.vim", -- all the plugins installed and their configurations
 }
 
 -- source all the core config files
@@ -35,3 +35,6 @@ for _, name in ipairs(core_conf_files) do
   local source_cmd = "source " .. path
   vim.cmd(source_cmd)
 end
+
+require("plugins") -- all the plugins installed and their configurations
+require("mappings") -- all the user-defined mappings
