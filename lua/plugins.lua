@@ -232,9 +232,6 @@ packer.startup {
       config = function() require("better_escape").setup { mapping = {"kj" } } end
     }
 
-    -- Auto format tools
-    use { "sbdchd/neoformat", cmd = { "Neoformat" } }
-
     ------------------ Git ---------------------
     -- Git command inside vim
     use { "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] }
@@ -259,7 +256,10 @@ packer.startup {
     -----------------------------------------------
 
     -- Another markdown plugin
-    use { "preservim/vim-markdown", ft = { "markdown" } }
+    use { "preservim/vim-markdown",
+      ft = { "markdown" },
+      config = [[require('config.vim-markdown')]],
+    }
 
     -- Faster footnote generation
     use { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } }
@@ -273,14 +273,25 @@ packer.startup {
     end
 
     -- handling unicode and digraphs characters
-    use { "chrisbra/unicode.vim", event = "VimEnter" }
+    use {
+      "chrisbra/unicode.vim",
+      event = "VimEnter",
+      keys = { "ga" },
+      config = function()
+        vim.keymap.set({"n"}, "ga", ":UnicodeName<cr>", { desc = "identify character under cursor" })
+      end
+     }
 
     -- Additional powerful text object for vim, this plugin should be studied
     -- carefully to use its full power
     use { "wellle/targets.vim", event = "VimEnter" }
 
     -- Plugin to manipulate character pairs quickly
-    use { "machakann/vim-sandwich", event = "VimEnter" }
+    use {
+      "machakann/vim-sandwich",
+      event = "VimEnter",
+      config = [[require('config.vim-sandwich')]]
+    }
 
     -- Add indent object for vim (useful for languages like Python)
     use { "michaeljsmith/vim-indent-object", event = "VimEnter" }
@@ -305,7 +316,7 @@ packer.startup {
     use {
       "andymass/vim-matchup",
       event = "VimEnter",
-      setup = [[require('vim-matchup')]],
+      setup = [[require('setup.vim-matchup')]],
     }
 
     use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
