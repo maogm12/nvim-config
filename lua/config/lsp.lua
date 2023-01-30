@@ -149,7 +149,6 @@ if utils.executable("clangd") then
   lspconfig.clangd.setup {
     on_attach = custom_attach,
     capabilities = capabilities,
-    filetypes = { "c", "cpp", "cc" },
     flags = {
       debounce_text_changes = 500,
     },
@@ -218,8 +217,8 @@ fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHin
 
 -- global config for diagnostic
 diagnostic.config {
-  underline = false,
-  virtual_text = false,
+  underline = true,
+  virtual_text = true,
   signs = true,
   severity_sort = true,
 }

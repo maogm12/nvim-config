@@ -21,6 +21,12 @@ we need to install a patched font from the [nerd-fonts](https://github.com/ryano
 
 # Automatic installation
 
+## Automatic Installation for macOS
+Use [the bash script](nvim_setup_macos.sh) to automatically install necessary depedencies, neovim and configs.
+```
+.\nvim_setup_macos.sh
+```
+
 ## Automatic Installation for Linux
 
 To set up a workable Nvim environment on Linux,
@@ -140,6 +146,20 @@ choco install universal-ctags
 ```
 
 Set its PATH properly and make sure you can run `ctags` from command line.
+
+### lua-language-server
+A lot of neovim plugins are written by lua, a language server for lua language is also recommended.
+
+To install it on macOS/linux, use [Homebrew/Linuxbrew](https://github.com/sumneko/lua-language-server):
+
+```bash
+brew install lua-language-server
+```
+
+### bash-language-server
+```bash
+npm install -g bash-language-server
+```
 
 ### Ripgrep
 
