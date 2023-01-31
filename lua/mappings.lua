@@ -255,3 +255,27 @@ keymap.set("n", "<leader>t", ":<C-u>Vista!!<cr>", {
 -------------------------------------------------------------------------------
 -- Use another mapping for the open URL method
 keymap.set({"n", "x"}, "ob", "<Plug>(openbrowser-smart-search)", { desc = "search in browser" })
+
+-------------------------------------------------------------------------------
+---------------------------{ nvim-tree }---------------------------------------
+-------------------------------------------------------------------------------
+-- Use another mapping for the open URL method
+keymap.set("n", "<leader>n", function()
+  require("nvim-tree").toggle(
+    false, -- with_find_file
+    false) -- no_focus: false means focus to the file editing by the current buffer
+end, { silent = true, desc = "toggle nvim-tree" })
+
+-------------------------------------------------------------------------------
+---------------------------{ nvim-dap }----------------------------------------
+-------------------------------------------------------------------------------
+keymap.set("n", "<F5>", function() require'dap'.continue() end, { noremap = true, silent = true, desc = "debugger: continue" })
+keymap.set("n", "<F10>", function() require'dap'.step_over() end, { noremap = true, silent = true, desc = "debugger: step over" })
+keymap.set("n", "<F11>", function() require'dap'.step_into() end, { noremap = true, silent = true, desc = "debugger: step into" })
+keymap.set("n", "<F12>", function() require'dap'.step_out() end, { noremap = true, silent = true, desc = "debugger: step out" })
+keymap.set("n", "<Leader>b", function() require'dap'.toggle_breakpoint() end, { noremap = true, silent = true, desc = "debugger: toggle breakpoint" })
+keymap.set("n", "<Leader>B", function()
+  require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+end, { noremap = true, silent = true, desc = "debugger: breakpoint condition" })
+keymap.set("n", "<Leader>dr", function() require'dap'.repl.open() end, { noremap = true, silent = true, desc = "debugger: open repl" })
+keymap.set("n", "<Leader>dl", function() require'dap'.run_last() end, { noremap = true, silent = true, desc = "debugger: run last" })

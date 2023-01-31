@@ -139,9 +139,3 @@ nvim_tree.setup {
     },
   },
 }
-
-keymap.set("n", "<leader>b", function()
-  nvim_tree.toggle(
-    false, -- with_find_file
-    false) -- no_focus
-end, { silent = true, desc = "toggle nvim-tree" })

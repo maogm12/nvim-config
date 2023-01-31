@@ -247,7 +247,7 @@ packer.startup {
     -- Comment plugin
     use {
       'numToStr/Comment.nvim',
-      config = [[require('config.Comment')]] 
+      config = [[require('config.Comment')]]
     }
 
     -- Show undo history visually
@@ -363,6 +363,14 @@ packer.startup {
 
     -- Debugger
     use "mfussenegger/nvim-dap"
+    
+    -- mason, DAP
+    use {
+      "jayp0521/mason-nvim-dap.nvim",
+      requires = { "mason.nvim", "nvim-dap" },
+      after = { "mason.nvim", "nvim-dap" },
+      config = [[require('config.mason-nvim-dap')]],
+    }
 
     -- Session management plugin
     use { "tpope/vim-obsession", cmd = "Obsession" }
