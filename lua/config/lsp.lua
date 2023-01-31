@@ -95,119 +95,98 @@ local custom_attach = function(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 local lspconfig = require("lspconfig")
 
-if utils.executable("pylsp") then
-  lspconfig.pylsp.setup {
-    on_attach = custom_attach,
-    settings = {
-      pylsp = {
-        plugins = {
-          pylint = { enabled = true, executable = "pylint" },
-          pyflakes = { enabled = false },
-          pycodestyle = { enabled = false },
-          jedi_completion = { fuzzy = true },
-          pyls_isort = { enabled = true },
-          pylsp_mypy = { enabled = true },
-        },
-      },
-    },
-    flags = {
-      debounce_text_changes = 200,
-    },
-    capabilities = capabilities,
-  }
-else
-  vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
--- if utils.executable('pyright') then
---   lspconfig.pyright.setup{
---     on_attach = custom_attach,
---     capabilities = capabilities
---   }
--- else
---   vim.notify("pyright not found!", vim.log.levels.WARN, {title = 'Nvim-config'})
--- end
-
-if utils.executable("ltex-ls") then
-  lspconfig.ltex.setup {
-    on_attach = custom_attach,
-    cmd = { "ltex-ls" },
-    filetypes = { "text", "plaintex", "tex", "markdown" },
-    settings = {
-      ltex = {
-        language = "en"
-      },
-    },
-    flags = { debounce_text_changes = 300 },
-}
-end
-
-if utils.executable("clangd") then
-  lspconfig.clangd.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 500,
-    },
-  }
-else
-  vim.notify("clangd not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
--- set up vim-language-server
-if utils.executable("vim-language-server") then
-  lspconfig.vimls.setup {
-    on_attach = custom_attach,
-    flags = {
-      debounce_text_changes = 500,
-    },
-    capabilities = capabilities,
-  }
-else
-  vim.notify("vim-language-server not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
--- set up bash-language-server
-if utils.executable("bash-language-server") then
-  lspconfig.bashls.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-  }
-end
-
-if utils.executable("lua-language-server") then
-  -- settings for lua-language-server can be found on https://github.com/sumneko/lua-language-server/wiki/Settings .
-  lspconfig.sumneko_lua.setup {
-    on_attach = custom_attach,
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files,
-          -- see also https://github.com/sumneko/lua-language-server/wiki/Libraries#link-to-workspace .
-          -- Lua-dev.nvim also has similar settings for sumneko lua, https://github.com/folke/lua-dev.nvim/blob/main/lua/lua-dev/sumneko.lua .
-          library = {
-            fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
-            fn.stdpath("config"),
+require('mason-lspconfig').setup_handlers({
+  function(server)
+    lspconfig[server].setup({
+      on_attach = custom_attach,
+      capabilities = capabilities, 
+    })
+  end,
+  ["pylsp"] = function()
+    lspconfig.pylsp.setup {
+      on_attach = custom_attach,
+      settings = {
+        pylsp = {
+          plugins = {
+            pylint = { enabled = true, executable = "pylint" },
+            pyflakes = { enabled = false },
+            pycodestyle = { enabled = false },
+            jedi_completion = { fuzzy = true },
+            pyls_isort = { enabled = true },
+            pylsp_mypy = { enabled = true },
           },
-          maxPreload = 2000,
-          preloadFileSize = 50000,
         },
       },
-    },
-    capabilities = capabilities,
-  }
-end
+      flags = {
+        debounce_text_changes = 200,
+      },
+      capabilities = capabilities,
+    }
+  end,
+  ["ltex"] = function()
+    lspconfig.ltex.setup {
+      on_attach = custom_attach,
+      cmd = { "ltex-ls" },
+      filetypes = { "text", "plaintex", "tex", "markdown" },
+      settings = {
+        ltex = {
+          language = "en"
+        },
+      },
+      flags = { debounce_text_changes = 300 },
+    }
+  end,
+  ["vimls"] = function()
+    lspconfig.vimls.setup {
+      on_attach = custom_attach,
+      flags = {
+        debounce_text_changes = 500,
+      },
+      capabilities = capabilities,
+    }
+  end,
+  ["sumneko_lua"] = function()
+    -- settings for lua-language-server can be found on https://github.com/sumneko/lua-language-server/wiki/Settings .
+    lspconfig.sumneko_lua.setup {
+      on_attach = custom_attach,
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files,
+            -- see also https://github.com/sumneko/lua-language-server/wiki/Libraries#link-to-workspace .
+            -- Lua-dev.nvim also has similar settings for sumneko lua, https://github.com/folke/lua-dev.nvim/blob/main/lua/lua-dev/sumneko.lua .
+            library = {
+              fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
+              fn.stdpath("config"),
+            },
+            maxPreload = 2000,
+            preloadFileSize = 50000,
+          },
+        },
+      },
+      capabilities = capabilities,
+    }
+  end,
+  ["clangd"] = function()
+    lspconfig.clangd.setup {
+      on_attach = custom_attach,
+      capabilities = capabilities,
+      flags = {
+        debounce_text_changes = 500,
+      },
+    }
+  end
+})
 
 -- Change diagnostic signs.
 fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })

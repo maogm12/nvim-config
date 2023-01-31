@@ -60,8 +60,41 @@ packer.startup {
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
 
+    -- Portable package manager for Neovim
+    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+    use "williamboman/mason.nvim"
+
+    use {
+      "williamboman/mason-lspconfig.nvim",
+      after = "mason.nvim",
+      config = [[require('config.mason-lspconfig')]]
+    }
+
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
-    use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
+    use {
+      "neovim/nvim-lspconfig",
+      after = { "cmp-nvim-lsp", "mason-lspconfig.nvim" },
+      config = [[require('config.lsp')]]
+    }
+
+    -- Debugger
+    use "mfussenegger/nvim-dap"
+    
+    -- mason, DAP
+    use {
+      "jayp0521/mason-nvim-dap.nvim",
+      requires = { "mason.nvim", "nvim-dap" },
+      after = { "mason.nvim", "nvim-dap" },
+      config = [[require('config.mason-nvim-dap')]],
+    }
+
+    -- Debugger UI
+    use {
+      "rcarriga/nvim-dap-ui",
+      requires = {"mfussenegger/nvim-dap"},
+      event = "VimEnter",
+      config = [[require('config.nvim-dap-ui')]],
+    }
 
     -- treesitter
     if vim.g.is_mac then
@@ -354,24 +387,6 @@ packer.startup {
 
     use { "cespare/vim-toml", ft = { "toml" }, branch = "main" }
 
-    -- Portable package manager for Neovim
-    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
-    use {
-      "williamboman/mason.nvim",
-      config = function() require("mason").setup() end
-    }
-
-    -- Debugger
-    use "mfussenegger/nvim-dap"
-    
-    -- mason, DAP
-    use {
-      "jayp0521/mason-nvim-dap.nvim",
-      requires = { "mason.nvim", "nvim-dap" },
-      after = { "mason.nvim", "nvim-dap" },
-      config = [[require('config.mason-nvim-dap')]],
-    }
-
     -- Session management plugin
     use { "tpope/vim-obsession", cmd = "Obsession" }
 
@@ -430,6 +445,12 @@ packer.startup {
 
     -- floating window for terminal
     use "voldikss/vim-floaterm"
+
+    use {
+      "NvChad/nvim-colorizer.lua",
+      event = "VimEnter",
+      config = function() require 'colorizer'.setup() end
+    }
 
   end,
   config = {
