@@ -93,7 +93,11 @@ packer.startup {
       "rcarriga/nvim-dap-ui",
       requires = {"mfussenegger/nvim-dap"},
       event = "VimEnter",
-      config = [[require('config.nvim-dap-ui')]],
+      config = function ()
+        vim.defer_fn(function ()
+          require('config.nvim-dap-ui')
+        end, 2000)
+      end
     }
 
     -- treesitter
