@@ -38,3 +38,7 @@ end
 
 require("plugins") -- all the plugins installed and their configurations
 require("mappings") -- all the user-defined mappings
+
+if vim.fn.filereadable('lua/custom.lua') then
+  require("custom") -- extra setup
+end
