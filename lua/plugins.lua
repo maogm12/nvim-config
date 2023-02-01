@@ -79,7 +79,7 @@ packer.startup {
 
     -- Debugger
     use "mfussenegger/nvim-dap"
-    
+
     -- mason, DAP
     use {
       "jayp0521/mason-nvim-dap.nvim",
@@ -94,10 +94,17 @@ packer.startup {
       requires = {"mfussenegger/nvim-dap"},
       event = "VimEnter",
       config = function ()
+        -- defer initialization
         vim.defer_fn(function ()
           require('config.nvim-dap-ui')
         end, 2000)
       end
+    }
+
+    use {
+      "jose-elias-alvarez/null-ls.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = [[require('config.null-ls')]],
     }
 
     -- treesitter
