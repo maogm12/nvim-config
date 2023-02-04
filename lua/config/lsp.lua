@@ -2,10 +2,9 @@ local fn = vim.fn
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 
-local lsp_on_attach = require('lsp').on_attach
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require("lspconfig")
+local lsp_on_attach = require('lsp').on_attach
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('mason-lspconfig').setup_handlers({
   function(server)

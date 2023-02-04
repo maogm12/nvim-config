@@ -78,7 +78,11 @@ packer.startup {
     }
 
     -- Debugger
-    use "mfussenegger/nvim-dap"
+    use {
+      "mfussenegger/nvim-dap",
+      event = "VimEnter",
+      config = [[require('config.nvim-dap')]],
+    }
 
     -- mason, DAP
     use {
@@ -92,6 +96,7 @@ packer.startup {
     use {
       "rcarriga/nvim-dap-ui",
       requires = {"mfussenegger/nvim-dap"},
+      after = { "nvim-dap" },
       event = "VimEnter",
       config = function ()
         -- defer initialization
