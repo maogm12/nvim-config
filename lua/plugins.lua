@@ -460,7 +460,10 @@ packer.startup {
     use "dstein64/vim-startuptime"
 
     -- floating window for terminal
-    use "voldikss/vim-floaterm"
+    use {
+      "voldikss/vim-floaterm",
+      event = "VimEnter",
+    }
 
     use {
       "NvChad/nvim-colorizer.lua",
